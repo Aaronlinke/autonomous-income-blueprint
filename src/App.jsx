@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Textarea } from '@/components/ui/textarea.jsx'
+import AgentDashboard from '@/components/AgentDashboard.jsx'
 import { 
   TrendingUp, 
   Bot, 
@@ -16,13 +17,15 @@ import {
   CheckCircle,
   Mail,
   Globe,
-  Smartphone
+  Smartphone,
+  Settings
 } from 'lucide-react'
 import './App.css'
 
 function App() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [activeTab, setActiveTab] = useState('overview')
 
   const handleSubscribe = (e) => {
     e.preventDefault()
@@ -51,16 +54,43 @@ function App() {
                 Autonomous Income Blueprint
               </h1>
             </div>
-            <Badge variant="secondary" className="hidden sm:flex">
-              <Zap className="w-3 h-3 mr-1" />
-              Vollautomatisch
-            </Badge>
+            <div className="flex items-center gap-4">
+              <nav className="hidden md:flex items-center gap-2">
+                <Button
+                  variant={activeTab === 'overview' ? 'default' : 'ghost'}
+                  onClick={() => setActiveTab('overview')}
+                  size="sm"
+                >
+                  <Globe className="w-4 h-4 mr-2" />
+                  Überblick
+                </Button>
+                <Button
+                  variant={activeTab === 'dashboard' ? 'default' : 'ghost'}
+                  onClick={() => setActiveTab('dashboard')}
+                  size="sm"
+                  className={activeTab === 'dashboard' ? 'bg-gradient-to-r from-blue-600 to-purple-600' : ''}
+                >
+                  <Settings className="w-4 h-4 mr-2" />
+                  KI-Agent
+                </Button>
+              </nav>
+              <Badge variant="secondary" className="hidden sm:flex">
+                <Zap className="w-3 h-3 mr-1" />
+                Vollautomatisch
+              </Badge>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="py-20 px-4">
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        {activeTab === 'dashboard' ? (
+          <AgentDashboard />
+        ) : (
+          <>
+            {/* Hero Section */}
+            <section className="py-12 px-4">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
             <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
@@ -387,6 +417,9 @@ function App() {
           </div>
         </div>
       </footer>
+          </>
+        )}
+      </div>
     </div>
   )
 }
