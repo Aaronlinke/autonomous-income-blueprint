@@ -1,0 +1,10 @@
+nohup: ignoring input
+🚀 Autonomous Income Agent gestartet
+🔍 Suche nach neuen Einkommensmöglichkeiten...
+(node:4698) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+🌐 Dashboard API Server läuft auf Port 3001
+⚠️ Reddit API nicht verfügbar, verwende simulierte Trends
+⚠️ OpenAI API nicht verfügbar
+✅ 6 neue Opportunities gefunden und analysiert
+⏰ Automatische Suche alle 4 Stunden aktiviert

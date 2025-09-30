@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "autonomous-income-agent": {
+      "command": "node",
+      "args": ["/home/ubuntu/autonomous-income-agent/mcp-server.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
