@@ -1,0 +1,21 @@
+nohup: ignoring input
+(node:8097) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+🚀 Final Autonomous Income Agent Server läuft auf Port 3001
+✅ Content Generator initialisiert
+✅ Content Publisher initialisiert
+🔧 1 von 7 Services aktiviert
+📋 Verfügbare Endpoints:
+  GET  /api/config/status - Konfigurationsstatus
+  POST /api/integrations/test/:service - Integration testen
+  GET  /api/opportunities - Opportunities abrufen
+  POST /api/opportunities/:id/approve - Opportunity genehmigen
+  POST /api/opportunities/:id/generate-content - Content generieren
+  POST /api/opportunities/:id/publish-content - Content veröffentlichen
+  GET  /api/content/generated - Generierten Content abrufen
+  GET  /api/content/published - Veröffentlichten Content abrufen
+  POST /api/agent/start - Agent starten
+  POST /api/agent/stop - Agent stoppen
+  GET  /api/agent/status - Agent-Status
+  GET  /api/stats - Performance-Statistiken
+  POST /api/opportunities/scan - Manuelle Suche
