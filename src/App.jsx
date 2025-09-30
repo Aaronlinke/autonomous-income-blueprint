@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Textarea } from '@/components/ui/textarea.jsx'
 import AgentDashboard from '@/components/AgentDashboard.jsx'
+import AnalyticsDashboard from '@/components/AnalyticsDashboard.jsx'
 import { 
   TrendingUp, 
   Bot, 
@@ -73,6 +74,15 @@ function App() {
                   <Settings className="w-4 h-4 mr-2" />
                   KI-Agent
                 </Button>
+                <Button
+                  variant={activeTab === 'analytics' ? 'default' : 'ghost'}
+                  onClick={() => setActiveTab('analytics')}
+                  size="sm"
+                  className={activeTab === 'analytics' ? 'bg-gradient-to-r from-orange-600 to-red-600' : ''}
+                >
+                  <BarChart3 className="w-4 h-4 mr-2" />
+                  Analytics
+                </Button>
               </nav>
               <Badge variant="secondary" className="hidden sm:flex">
                 <Zap className="w-3 h-3 mr-1" />
@@ -87,6 +97,8 @@ function App() {
       <div className="container mx-auto px-4 py-8">
         {activeTab === 'dashboard' ? (
           <AgentDashboard />
+        ) : activeTab === 'analytics' ? (
+          <AnalyticsDashboard />
         ) : (
           <>
             {/* Hero Section */}
