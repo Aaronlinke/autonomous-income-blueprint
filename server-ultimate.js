@@ -16,6 +16,7 @@ import ContentGenerator from './modules/contentGenerator.js';
 import ContentPublisher from './modules/contentPublisher.js';
 import AnalyticsTracker from './modules/analyticsTracker.js';
 import WorkflowManager from './modules/workflowManager.js';
+import NewPlatformsIntegration from './integrations/newPlatforms.js';
 import { spawn } from 'child_process';
 
 dotenv.config();
@@ -35,12 +36,16 @@ const gumroad = new GumroadIntegration(config.getServiceConfig('gumroad'));
 const affiliate = new AffiliateIntegration(config.getServiceConfig('affiliate'));
 const contentGenerator = new ContentGenerator(config.getServiceConfig('openai'));
 const contentPublisher = new ContentPublisher(config.getServiceConfig('wordpress'));
-const analyticsTracker = new AnalyticsTracker(config.getServiceConfig('analytics'));
-const workflowManager = new WorkflowManager({
-  openai: config.getServiceConfig('openai'),
-  publishing: config.getServiceConfig('wordpress'),
-  analytics: config.getServiceConfig('analytics')
+const analyticsTracker = new AnalyticsTracker({
+  googleAnalytics: config.getServiceConfig('analytics') || {},
+  openai: config.getServiceConfig('openai') || {}
 });
+const workflowManager = new WorkflowManager({
+  openai: config.getServiceConfig('openai') || {},
+  gumroad: config.getServiceConfig('gumroad') || {},
+  wordpress: config.getServiceConfig('wordpress') || {}
+});
+const newPlatforms = new NewPlatformsIntegration(config);
 
 // Simulierte Datenbank für Opportunities
 let opportunities = [
@@ -119,6 +124,56 @@ console.log('📤 Content Publisher bereit');
 console.log(`⚙️ ${agentStatus.services_active}/${agentStatus.total_services} Services aktiv`);
 
 // === API ENDPOINTS ===
+
+// Neue Plattformen - Shopify Produkt erstellen
+app.post("/api/platforms/shopify/products", async (req, res) => {
+  try {
+    const result = await newPlatforms.createShopifyProduct(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Neue Plattformen - Mailchimp Kampagne erstellen
+app.post("/api/platforms/mailchimp/campaigns", async (req, res) => {
+  try {
+    const result = await newPlatforms.createMailchimpCampaign(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Neue Plattformen - Teachable Kurs erstellen
+app.post("/api/platforms/teachable/courses", async (req, res) => {
+  try {
+    const result = await newPlatforms.createTeachableCourse(req.body);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Multi-Platform Analytics
+app.get("/api/platforms/analytics", async (req, res) => {
+  try {
+    const result = await newPlatforms.getMultiPlatformAnalytics();
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Neue Plattform-Opportunities generieren
+app.get("/api/platforms/opportunities", async (req, res) => {
+  try {
+    const result = await newPlatforms.generateNewPlatformOpportunities();
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 // ML-Vorhersage für Opportunities
 app.post("/api/ml/predict", (req, res) => {

@@ -1,15 +1,14 @@
 nohup: ignoring input
-🤖 Ultimate Autonomous Income Agent gestartet
-📊 Analytics Tracker initialisiert
-🔄 Workflow Manager initialisiert
-🎯 Content Generator bereit
-📤 Content Publisher bereit
-⚙️ 1/7 Services aktiv
-(node:10291) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-(Use `node --trace-deprecation ...` to show where the warning was created)
-🚀 Ultimate Autonomous Income Agent läuft auf Port 3001
-📊 Dashboard verfügbar unter: http://localhost:3001
-🎯 API-Endpunkte: 3001/api/*
+file:///home/ubuntu/autonomous-income-agent/modules/contentPublisher.js:13
+      wordpress: config.wordpress || {},
+                        ^
 
-🤖 Agent bereit für autonome Einkommensgenerierung!
-💰 Warten auf Opportunity-Genehmigungen...
+TypeError: Cannot read properties of undefined (reading 'wordpress')
+    at new ContentPublisher (file:///home/ubuntu/autonomous-income-agent/modules/contentPublisher.js:13:25)
+    at new WorkflowManager (file:///home/ubuntu/autonomous-income-agent/modules/workflowManager.js:14:29)
+    at file:///home/ubuntu/autonomous-income-agent/server-ultimate.js:43:25
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+
+Node.js v22.13.0

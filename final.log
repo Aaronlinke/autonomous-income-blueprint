@@ -1,5 +1,5 @@
 nohup: ignoring input
-(node:8097) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:10550) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
 🚀 Final Autonomous Income Agent Server läuft auf Port 3001
 ✅ Content Generator initialisiert
@@ -19,11 +19,3 @@ nohup: ignoring input
   GET  /api/agent/status - Agent-Status
   GET  /api/stats - Performance-Statistiken
   POST /api/opportunities/scan - Manuelle Suche
-🔍 Starte erweiterte Opportunity-Suche...
-⚠️ Keine API-Integrationen konfiguriert, generiere simulierte Opportunities...
-✅ Opportunity-Suche abgeschlossen. 3 neue Opportunities gefunden.
-🚀 Enhanced Autonomous Income Agent gestartet
-🤖 Starte automatische Content-Generierung für: KI-Prompt Bibliothek
-📝 Generiere Content für Opportunity: KI-Prompt Bibliothek
-✅ Content für Opportunity 1 generiert
-✅ Opportunity "KI-Prompt Bibliothek" genehmigt und umgesetzt
