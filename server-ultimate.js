@@ -16,6 +16,7 @@ import ContentGenerator from './modules/contentGenerator.js';
 import ContentPublisher from './modules/contentPublisher.js';
 import AnalyticsTracker from './modules/analyticsTracker.js';
 import WorkflowManager from './modules/workflowManager.js';
+import { spawn } from 'child_process';
 
 dotenv.config();
 
@@ -119,8 +120,35 @@ console.log(`⚙️ ${agentStatus.services_active}/${agentStatus.total_services}
 
 // === API ENDPOINTS ===
 
+// ML-Vorhersage für Opportunities
+app.post("/api/ml/predict", (req, res) => {
+  const opportunityData = req.body;
+  const pythonProcess = spawn("python3", ["./modules/mlPredictor.py", JSON.stringify(opportunityData)]);
+
+  let predictionResult = "";
+  pythonProcess.stdout.on("data", (data) => {
+    predictionResult += data.toString();
+  });
+
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  pythonProcess.on("close", (code) => {
+    if (code !== 0) {
+      return res.status(500).json({ success: false, message: "Fehler bei der ML-Vorhersage", code: code });
+    }
+    try {
+      const predictions = JSON.parse(predictionResult);
+      res.json({ success: true, predictions: predictions });
+    } catch (e) {
+      res.status(500).json({ success: false, message: "Fehler beim Parsen der ML-Vorhersage", error: e.message });
+    }
+  });
+});
+
 // Agent Status
-app.get('/api/agent/status', (req, res) => {
+app.get("/api/agent/status", (req, res) => {
   res.json({
     success: true,
     agent: agentStatus,
